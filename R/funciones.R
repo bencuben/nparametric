@@ -1,15 +1,18 @@
 # Function 1 --------------------------------------------------------------
 
-#' Cramer V
+#' Cramer Contingence Coefficient 
 #' 
-#' description here!!!!
-#' @param x first element
-#' @param y second element
-#' @param digits number of digits you want in the result
-#' @param ... Another things that idk
-#' @return a numeric value indicating the rao crammer v
+#' @description Measure a degree of dependence between two variables, this number shoud be between 0 and 1.
+#' @param x A numeric vector or matrix. x and y can also both be factors.
+#' @param y A numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.
+#' @param digits Integer indicating the number of decimal places (round) or significant digits (signif) to be used. Negative values are allowed (see ‘Details’).
+#' @param ... Additional arguments provided by chisq.test() from stats package.
+#' @details Rounding to a negative number of digits means rounding to a power of ten, so for example round(x, digits = -2) rounds to the nearest hundred.
+#' @return A numeric value indicating the Cramer Contingence Coefficient. 
 #' @export
-#' @references librito de no parametrica
+#' @examples x<- matrix(c(28,5,0,7),ncol=2)
+#' CramerV(x)
+#' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
 CramerV<-function (x, y = NULL, digits = 4, ...) 
 {
   CV = NULL
@@ -49,16 +52,19 @@ CramerV<-function (x, y = NULL, digits = 4, ...)
 
 # Function 2 --------------------------------------------------------------
 
-#' Cramer contingence coeficent
+#' Contingence Coefficent of Pearson
 #' 
-#' description here!!!!
-#' @param x first element 
-#' @param y second element
-#' @param digits number of digits you want in the result
-#' @param ... Another things that idk
-#' @return a numeric value indicating the contingece coefficient of Crammer 
+#' @description  Measure a degree of dependence between two variables, this number shoud be between 0 and \eqn{\sqrt(q-1/q)}.
+#' @param x A numeric vector or matrix. x and y can also both be factors. 
+#' @param y A numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.
+#' @param digits Integer indicating the number of decimal places (round) or significant digits (signif) to be used. Negative values are allowed (see ‘Details’).
+#' @param ... Additional arguments provided by chisq.test() from stats package.
+#' @return A numeric value indicating the contingece coefficient of Pearson. 
+#' @details Rounding to a negative number of digits means rounding to a power of ten, so for example round(x, digits = -2) rounds to the nearest hundred.
 #' @export
-#' @references librito de no parametrica
+#' @examples x<- matrix(c(28,5,0,7),ncol=2)
+#' CoefCont(x)
+#' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
 CoefCont<-function (x, y = NULL, digits = 4, ...) 
 {
   Cont = NULL
@@ -89,22 +95,25 @@ CoefCont<-function (x, y = NULL, digits = 4, ...)
   }
   
   Cont = signif(as.numeric(Cont), digits = digits)
-  names(Cont) = "Coef. Cont. de Cramer"
+  names(Cont) = "Coef. Cont. de Cramer" #no sería de pearson?
   return(Cont)
 }
 
 # Function 3 --------------------------------------------------------------
 
-#' Phi value
+#' Phi Coefficient
 #' 
-#' description here!!!!
-#' @param x first element 
-#' @param y second element
-#' @param digits number of digits you want in the result
-#' @param ... Another things that idk
-#' @return a numeric value indicating the Phi value
+#' @description  Measure a degree of dependence between two variables, this number shoud be between 0 and \eqn{\sqrt(q-1)}.
+#' @param x A numeric vector or matrix. x and y can also both be factors. 
+#' @param y A numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.
+#' @param digits Integer indicating the number of decimal places (round) or significant digits (signif) to be used. Negative values are allowed (see ‘Details’).
+#' @param ... Additional arguments provided by chisq.test() from stats package.
+#' @return A numeric value indicating the contingece coefficient of Pearson.
+#' @details Rounding to a negative number of digits means rounding to a power of ten, so for example round(x, digits = -2) rounds to the nearest hundred.
 #' @export
-#' @references librito de no parametrica
+#' @examples x<- matrix(c(28,5,0,7),ncol=2)
+#' Phi(x)
+#' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
 Phi<-function (x, y = NULL, digits = 4, ...) 
 {
   Phi = NULL
@@ -137,18 +146,29 @@ Phi<-function (x, y = NULL, digits = 4, ...)
 
 # Function 4 --------------------------------------------------------------
 
-#' Cochranq Hyphotesys test for matrix
+#' Cochran's Q Test for Dependent Samples
 #' 
-#' description here!!!!
-#' @param mat a matrix object
-#' @return the Cochranq hyphotesys test
+#' @description A mean difference test for depending samples proposed by Marascuilo & McSweeny (1967).
+#' @param x A matrix or data.frame 
+#' @return A list with class "htest" containing the following components:
+#'
+#' statistic:	the value of the Cochran's Q statistic.
+#' 
+#' df: Degree of freedom of the Chi squared distribution corresponding to the test. 
+#' 
+#' p.value: an approximate p-value for the test.
 #' @export
-#' @references librito de no parametrica
-cochranq.test <- function(mat)
-{ k <- ncol(mat)
-C <- sum(colSums(mat) ^ 2)
-R <- sum(rowSums(mat) ^ 2)
-T <- sum(rowSums(mat))
+#' @examples x = as.table(matrix(c(1,1,0,1,0,1,1,1,0,0,1,1,1,1,1,1,0,
+#' 1,1,1,0,1,1,1,1,1,0,0,0,1,1,0,1,0,1,1),ncol=3))
+#' cochranq.test(x)
+#' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
+#' 
+#' 
+cochranq.test <- function(x)
+{ k <- ncol(x)
+C <- sum(colSums(x) ^ 2)
+R <- sum(rowSums(x) ^ 2)
+T <- sum(rowSums(x))
 num <- (k - 1) * ((k * C) - (T ^ 2))
 den <- (k * T) - R
 Q <- num / den
@@ -158,23 +178,27 @@ names(Q) <- "Cochran's Q"
 p.val <- pchisq(Q, df, lower = FALSE)
 QVAL <- list(statistic = Q, parameter = df, p.value = p.val,
              method = "Cochran's Q Test for Dependent Samples",
-             data.name = deparse(substitute(mat)))
+             data.name = deparse(substitute(x)))
 class(QVAL) <- "htest"
 return(QVAL)}
 
 # Function 5 --------------------------------------------------------------
 
-#' Monotone no parametric regresion 
+#' Monotone no parametric regression 
 #' 
-#' description here!!!!
-#' @param data a vector, array or data frame
+#' @description hi!!!!
+#' @param X a vector, array or data frame
 #' @return Ni idea que retorna
 #' @export
-#' @references librito de no parametrica
-monregnp<-function(data) {
+#' @examples x=c(0,0.5,1.0,1.8,2.2,2.7,4.0,4.0,4.9,5.6,6.0,6.5,7.3,8.0,8.8,9.3,9.8)
+#' y=c(30,30,30,28,24,19,17,9,12,12,6,8,4,5,6,4,6)
+#' d=cbind(x,y)
+#' monregnp(d)
+#' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
+monregnp<-function(X) {
   
-  x=data[,1]
-  y=data[,2]
+  x=X[,1]
+  y=X[,2]
   n=length(x)
   rxi=rank(x)
   ryi=rank(y)

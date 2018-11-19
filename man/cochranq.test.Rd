@@ -2,19 +2,30 @@
 % Please edit documentation in R/funciones.R
 \name{cochranq.test}
 \alias{cochranq.test}
-\title{Cochranq Hyphotesys test for matrix}
+\title{Cochran's Q Test for Dependent Samples}
 \usage{
-cochranq.test(mat)
+cochranq.test(x)
 }
 \arguments{
-\item{mat}{a matrix object}
+\item{x}{A matrix or data.frame}
 }
 \value{
-the Cochranq hyphotesys test
+A list with class "htest" containing the following components:
+
+statistic:	the value of the Cochran's Q statistic.
+
+df: Degree of freedom of the Chi squared distribution corresponding to the test. 
+
+p.value: an approximate p-value for the test.
 }
 \description{
-description here!!!!
+A mean difference test for depending samples proposed by Marascuilo & McSweeny (1967).
+}
+\examples{
+x = as.table(matrix(c(1,1,0,1,0,1,1,1,0,0,1,1,1,1,1,1,0,
+1,1,1,0,1,1,1,1,1,0,0,0,1,1,0,1,0,1,1),ncol=3))
+cochranq.test(x)
 }
 \references{
-librito de no parametrica
+Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
 }

@@ -2,19 +2,25 @@
 % Please edit documentation in R/funciones.R
 \name{monregnp}
 \alias{monregnp}
-\title{Monotone no parametric regresion}
+\title{Monotone no parametric regression}
 \usage{
-monregnp(data)
+monregnp(X)
 }
 \arguments{
-\item{data}{a vector, array or data frame}
+\item{X}{a vector, array or data frame}
 }
 \value{
 Ni idea que retorna
 }
 \description{
-description here!!!!
+hi!!!!
+}
+\examples{
+x=c(0,0.5,1.0,1.8,2.2,2.7,4.0,4.0,4.9,5.6,6.0,6.5,7.3,8.0,8.8,9.3,9.8)
+y=c(30,30,30,28,24,19,17,9,12,12,6,8,4,5,6,4,6)
+d=cbind(x,y)
+monregnp(d)
 }
 \references{
-librito de no parametrica
+Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
 }

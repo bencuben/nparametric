@@ -2,25 +2,32 @@
 % Please edit documentation in R/funciones.R
 \name{CramerV}
 \alias{CramerV}
-\title{Cramer V}
+\title{Cramer Contingence Coefficient}
 \usage{
 CramerV(x, y = NULL, digits = 4, ...)
 }
 \arguments{
-\item{x}{first element}
+\item{x}{A numeric vector or matrix. x and y can also both be factors.}
 
-\item{y}{second element}
+\item{y}{A numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
 
-\item{digits}{number of digits you want in the result}
+\item{digits}{Integer indicating the number of decimal places (round) or significant digits (signif) to be used. Negative values are allowed (see ‘Details’).}
 
-\item{...}{Another things that idk}
+\item{...}{Additional arguments provided by chisq.test() from stats package.}
 }
 \value{
-a numeric value indicating the rao crammer v
+A numeric value indicating the Cramer Contingence Coefficient.
 }
 \description{
-description here!!!!
+Measure a degree of dependence between two variables, this number shoud be between 0 and 1.
+}
+\details{
+Rounding to a negative number of digits means rounding to a power of ten, so for example round(x, digits = -2) rounds to the nearest hundred.
+}
+\examples{
+x<- matrix(c(28,5,0,7),ncol=2)
+CramerV(x)
 }
 \references{
-librito de no parametrica
+Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
 }
