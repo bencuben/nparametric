@@ -270,3 +270,67 @@ monregnp<-function(X) {
   
   return(cbind(x1,y1))
 }
+
+# Function 6 --------------------------------------------------------------
+
+#' Variance comparison between two independent samples
+#' 
+#' @description Description will be soon!!!!
+#' @param x A vector or array for the first sample
+#' @param y A vector or array for the second sample
+#' @param test A character value containing one of the following option: "dos-colas", "inferior", "superior"
+#' @return Return a numeric value which compares the two variances
+#' @export
+#' @examples x<-c(10.8,11.1,10.4,10.1,11.3)
+#' y<-c(10.8,10.5,11,10.9,10.8,10.7,10.8)
+#' compvar(x,y,test="superior")
+#' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
+compvar<-function(x,y,test="dos-colas"){
+  
+  m1<-mean(x)
+  
+  m2<-mean(y)
+  
+  n<-length(x)
+  
+  m<-length(y)
+  
+  N<-n+m
+  
+  k<-n+1
+  
+  u<-abs(x-m1)
+  
+  v<-abs(y-m2)
+  
+  w<-c(u,v)
+  
+  R<-rank(w)
+  
+  Ru<-R[1:n]
+  
+  Rv<-R[k:N]
+  
+  T<-sum(Ru^2)
+  
+  R2<-mean(R^2)
+  
+  R4<-mean(R^4)
+  
+  T1<-(T-n*R2)/sqrt(n*m/(N-1)*(R4-R2^2))
+  
+  Vp <- switch(test,
+               
+               "dos-colas" = 2*(1-pnorm(abs(T1))), "inferior" = pnorm(T1),
+               
+               "superior" = 1-pnorm(T1) )
+  
+  
+  
+  val <- list(Z = T1, Valp = Vp)
+  
+  return(val)
+  
+}
+
+
