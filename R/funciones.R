@@ -186,19 +186,22 @@ return(QVAL)}
 
 #' Monotone no parametric regression 
 #' 
-#' @description hi!!!!
-#' @param X a vector, array or data frame
-#' @return Ni idea que retorna
+#' @description This function is used to fit Monotone nonparametric regression for a bi-variated vector of data
+#' @param datos a vector, array or data frame
+#' @return Return a array, containing the estimated points for the adjusted curve
 #' @export
 #' @examples x=c(0,0.5,1.0,1.8,2.2,2.7,4.0,4.0,4.9,5.6,6.0,6.5,7.3,8.0,8.8,9.3,9.8)
 #' y=c(30,30,30,28,24,19,17,9,12,12,6,8,4,5,6,4,6)
 #' d=cbind(x,y)
-#' monregnp(d)
+#' est=monregnp(d)
+#' plot(est,type="l",xlab="libras de azúcar", ylab="Días de fermentación")
+#' points(x,y)
+#' title(main="Curva de regresión no paramétrica")
 #' @references Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc
-monregnp<-function(X) {
+monregnp<-function(datos) {
   
-  x=X[,1]
-  y=X[,2]
+  x=datos[,1]
+  y=datos[,2]
   n=length(x)
   rxi=rank(x)
   ryi=rank(y)
@@ -207,6 +210,9 @@ monregnp<-function(X) {
   names(coef)<-NULL
   ry0=ry_ajus$fitted.values
   names(ry0)<-NULL
+  rx_a=(1/coef[2])*(ryi-coef[1])
+  names(rx_a)<-NULL
+  
   
   orden=order(y)
   yor=y[orden]
@@ -218,49 +224,58 @@ monregnp<-function(X) {
   mini=min(ryi)
   miny=min(y)
   
-  y_ajust=NULL
+  y_ajust=rep(0,n)
   
   for (i in 1:n) {
     if ( ry_ajust[i]>maxi) ( y_ajust[i]=maxy) else
-      if( ry_ajust[i]<mini) ( y_ajust[i]=miny)
-    for (j in 1:n-1)  {
-      if (ry_ajust[i]>ryiord[j] && ry_ajust[i]<ryiord[j+1])
-        (y_ajust[i]= yor[j]+(yor[j+1]-yor[j])*
-           (ry_ajust[i]-ryiord[j])/(ryiord[j+1]-ryiord[j]))
-      
-    }
+      if( ry_ajust[i]<mini) ( y_ajust[i]=miny) else
+        for (j in 1:n-1)  {
+          if (ry_ajust[i]>=ryiord[j] && ry_ajust[i]<=ryiord[j+1])
+            (y_ajust[i]= yor[j]+(yor[j+1]-yor[j])*
+               (ry_ajust[i]-ryiord[j])/(ryiord[j+1]-ryiord[j]))
+          
+        }
   }
-  cbind(xor,y_ajust)
+  cbind(xor,yor,ry_ajust,ryiord,y_ajust)
   
   
-  rx_ajust=(1/coef[2])*(ryi-coef[1])
+  orden1=order(x)
+  xord=x[orden1]
+  yord=y[orden1]
+  rx_ajust=rx_a[orden1]
+  rxiord=rxi[orden1]
   maxxa=max(rxi)
   maxx=max(x)
   minxa=min(rxi)
   minx=min(x)
   
-  x_ajust=NULL
+  
+  
+  x_ajust=rep(0,n)
   for (i in 1:n) {
-    if ( rx_ajust[i]>maxxa || rx_ajust[i]<minxa) ( x_ajust[i]=999999)
-    for (j in 1:n-1)  {
-      if (rx_ajust[i]>=rxi[j] && rx_ajust[i]<=rxi[j+1])
-        (x_ajust[i]= x[j]+(x[j+1]-x[j])*
-           (rx_ajust[i]-rxi[j])/(rxi[j+1]-rxi[j]))
-      
-    }
+    if (rx_ajust[i]>maxxa) (x_ajust[i]=999999) else
+      if (rx_ajust[i]<minxa) (x_ajust[i]=999999) else
+        for (j in 1:n-1)  {
+          if (rx_ajust[i]>=rxiord[j] && rx_ajust[i]<=rxiord[j+1])
+            (x_ajust[i]= xord[j]+(xord[j+1]-xord[j])*(rx_ajust[i]-rxiord[j])/(rxiord[j+1]-rxiord[j]))
+        }
   }
   
-  y=unique(y)
+  cbind(xord,yord,rx_ajust,rxiord,x_ajust)
+  
+  xor<-unique(xor)
+  
+  yord=unique(yord)
   
   x_ajust=unique(x_ajust)
   
-  y=y[x_ajust!=999999]
+  yord=yord[x_ajust!=999999]
   
   x_ajust=x_ajust[x_ajust!=999999]
   
   x1=c(xor,x_ajust)
   
-  y1=c(y_ajust,y)
+  y1=c(y_ajust,yord)
   
   ord=order(x1)
   
@@ -275,11 +290,11 @@ monregnp<-function(X) {
 
 #' Variance comparison between two independent samples
 #' 
-#' @description Description will be soon!!!!
+#' @description Compare de variance of two independent samples, depending of the alternative hypothesis
 #' @param x A vector or array for the first sample
 #' @param y A vector or array for the second sample
 #' @param test A character value containing one of the following option: "dos-colas", "inferior", "superior"
-#' @return Return a numeric value which compares the two variances
+#' @return Return a list containing the statistic's value and the P-value for the test
 #' @export
 #' @examples x<-c(10.8,11.1,10.4,10.1,11.3)
 #' y<-c(10.8,10.5,11,10.9,10.8,10.7,10.8)

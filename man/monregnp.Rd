@@ -4,22 +4,25 @@
 \alias{monregnp}
 \title{Monotone no parametric regression}
 \usage{
-monregnp(X)
+monregnp(datos)
 }
 \arguments{
-\item{X}{a vector, array or data frame}
+\item{datos}{a vector, array or data frame}
 }
 \value{
-Ni idea que retorna
+Return a array, containing the estimated points for the adjusted curve
 }
 \description{
-hi!!!!
+This function is used to fit Monotone nonparametric regression for a bi-variated vector of data
 }
 \examples{
 x=c(0,0.5,1.0,1.8,2.2,2.7,4.0,4.0,4.9,5.6,6.0,6.5,7.3,8.0,8.8,9.3,9.8)
 y=c(30,30,30,28,24,19,17,9,12,12,6,8,4,5,6,4,6)
 d=cbind(x,y)
-monregnp(d)
+est=monregnp(d)
+plot(est,type="l",xlab="libras de azúcar", ylab="Días de fermentación")
+points(x,y)
+title(main="Curva de regresión no paramétrica")
 }
 \references{
 Conover, W. J. (1999) "Practical Nonparametric Statistics", 3rd Edition, Jhon Wiley & Sons.Inc

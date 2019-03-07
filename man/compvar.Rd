@@ -14,10 +14,10 @@ compvar(x, y, test = "dos-colas")
 \item{test}{A character value containing one of the following option: "dos-colas", "inferior", "superior"}
 }
 \value{
-Return a numeric value which compares the two variances
+Return a list containing the statistic's value and the P-value for the test
 }
 \description{
-Description will be soon!!!!
+Compare de variance of two independent samples, depending of the alternative hypothesis
 }
 \examples{
 x<-c(10.8,11.1,10.4,10.1,11.3)
