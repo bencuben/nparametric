@@ -2,8 +2,8 @@
 
 #' Cramer Contingence Coefficient 
 #' 
-#' @description Measure a degree of dependence between two variables, this number shoud be between 0 and 1.
-#' @param x A numeric vector or matrix. x and y can also both be factors.
+#' @description Measure a degree of dependence between two variables, this number should be between 0 and 1.
+#' @param x A numeric vector or matrix. x, and y can also both be factors.
 #' @param y A numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.
 #' @param digits Integer indicating the number of decimal places (round) or significant digits (signif) to be used. Negative values are allowed (see ‘Details’).
 #' @param ... Additional arguments provided by chisq.test() from stats package.
