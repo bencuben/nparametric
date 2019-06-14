@@ -1,2 +1,2 @@
-# Paquete_prueba
-Intento de crear un paquete en R
+# Nparametric
+Desarrollo de funcione básicas de la estadística no paramétrica basados en rangos
