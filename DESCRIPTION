@@ -2,9 +2,11 @@ Package: nparametric
 Type: Package
 Title: Non-parametric basic functions
 Version: 0.4
-Date: 2018-11-17
+Date: 2019-06-14
 Encoding: UTF-8
-Authors@R: c(person("Brahian", "Cano Urrego", email="bcanou@unal.edu.co", role=c('cre')),person("Mario Cesar","Jaramillo",email="mcjarami.edu.co", role=c( 'aut')), person("Yeison Yovany", "Ocampo Naranjo", role = "ctb")  )
+Authors@R: c(person("Brahian", "Cano Urrego", email="bcanou@unal.edu.co", role=c("aut",'cre')),
+           person("Mario Cesar","Jaramillo Elorza",email="mcjarami.edu.co", role=c( 'aut')),
+           person("Yeison Yovany", "Ocampo Naranjo", role = c("aut", "ctb"))  )
 Description: Non-parametric functions for basic development
 License: GPL-2
 Imports: snpar, stats, agricolae
