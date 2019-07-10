@@ -95,7 +95,7 @@ CoefCont<-function (x, y = NULL, digits = 4, ...)
   }
   
   Cont = signif(as.numeric(Cont), digits = digits)
-  names(Cont) = "Coef. Cont. de Cramer" #no sería de pearson?
+  names(Cont) = "Coef. Cont. de Pearson" #no sería de pearson?
   return(Cont)
 }
 
