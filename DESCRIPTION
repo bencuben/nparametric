@@ -1,7 +1,7 @@
 Package: nparametric
 Type: Package
 Title: Non-parametric basic functions
-Version: 0.4
+Version: 0.6
 Date: 2019-06-14
 Encoding: UTF-8
 Authors@R: c(person("Brahian", "Cano Urrego", email="bcanou@unal.edu.co", role=c("aut",'cre')),

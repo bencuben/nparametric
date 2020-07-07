@@ -7,7 +7,7 @@
 CramerV(x, y = NULL, digits = 4, ...)
 }
 \arguments{
-\item{x}{A numeric vector or matrix. x and y can also both be factors.}
+\item{x}{A numeric vector or matrix. x, and y can also both be factors.}
 
 \item{y}{A numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.}
 
@@ -19,7 +19,7 @@ CramerV(x, y = NULL, digits = 4, ...)
 A numeric value indicating the Cramer Contingence Coefficient.
 }
 \description{
-Measure a degree of dependence between two variables, this number shoud be between 0 and 1.
+Measure a degree of dependence between two variables, this number should be between 0 and 1.
 }
 \details{
 Rounding to a negative number of digits means rounding to a power of ten, so for example round(x, digits = -2) rounds to the nearest hundred.

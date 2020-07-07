@@ -261,27 +261,25 @@ monregnp<-function(datos) {
         }
   }
   
-  cbind(xord,yord,rx_ajust,rxiord,x_ajust)
-  
-  xor<-unique(xor)
-  
-  yord=unique(yord)
-  
-  x_ajust=unique(x_ajust)
+  cbind(xord,yord,rx_ajust,rxiord,x_ajust,y_ajust)
   
   yord=yord[x_ajust!=999999]
   
   x_ajust=x_ajust[x_ajust!=999999]
   
-  x1=c(xor,x_ajust)
+  yord=unique(yord)
   
-  y1=c(y_ajust,yord)
+  x_ajust=unique(x_ajust)
+  
+  x1<-c(xor,x_ajust)
+  
+  y1<-c(y_ajust,yord)
   
   ord=order(x1)
   
-  x1=x1[ord]
+  x1<-x1[ord]
   
-  y1=y1[ord]
+  y1<-y1[ord]
   
   return(cbind(x1,y1))
 }
